@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="LoginForm.ThemePopup"
+    x:Name="themePopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Color="Transparent"
+    HorizontalOptions="End"
+    VerticalOptions="Start">
+
+    <Frame
+        WidthRequest="199"               
+        BackgroundColor="White"
+        CornerRadius="16"
+        TranslationY="100"
+        Padding="18,20"
+        Margin="0,5,16,15"
+        HasShadow="True"
+        HorizontalOptions="End"
+        VerticalOptions="Start">
+
+        <VerticalStackLayout Spacing="14">
+
+            <!-- Profile Header (Clickable) -->
+            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileTapped" />
+                </HorizontalStackLayout.GestureRecognizers>
+
+                <Frame 
+                    HeightRequest="48"
+                    WidthRequest="48"
+                    CornerRadius="24"
+                    IsClippedToBounds="True"
+                    Padding="0"
+                    BorderColor="#E0E0E0"
+                    BackgroundColor="#F5F5F5"
+                    VerticalOptions="Center">
+                    <Image 
+                        Source="profile_avatar.png"
+                        Aspect="AspectFill"
+                        HeightRequest="48"
+                        WidthRequest="48" />
+                </Frame>
+
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="JEROENEL A." FontAttributes="Bold" FontSize="16" TextColor="Black" />
+                    <Label Text="BSIT | 2nd Year" FontSize="12" TextColor="Gray" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" />
+
+            <!-- Menu Options -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="👤 Profile" TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProfileTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="🔒 Manage Password" TextColor="Black" />
+                <Label Text="❓ FAQs" TextColor="Black" />
+                <Label Text="🎧 Contact ICTO" TextColor="Black" />
+                <Label Text="⭐ Send Feedback" TextColor="Black" />
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="1" BackgroundColor="#E0E0E0" />
+
+            <!-- Sign Out -->
+            <Label Text="🚪 Sign Out"
+       TextColor="Red"
+       FontAttributes="Bold"
+       HorizontalOptions="Start"
+       Margin="0,5,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignOut"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

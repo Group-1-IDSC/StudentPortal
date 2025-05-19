@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoginForm.DashboardPage"
+             BackgroundColor="#F8FAFC">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Sidebar - initially collapsed (0 width) -->
+            <ColumnDefinition Width="0" x:Name="SidebarColumn" />
+            <!-- Main Content - takes full width -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar (hidden by default) -->
+        <Grid Grid.Column="0" BackgroundColor="White" Padding="0" x:Name="Sidebar" IsVisible="False">
+            <!-- Logo and App Title -->
+            <VerticalStackLayout Spacing="0">
+                <!-- Header with Logo -->
+                <Grid Padding="5,5" BackgroundColor="White">
+                    <HorizontalStackLayout>
+                        <!-- Logo -->
+                        <Image Source="idsc_logo.png" HeightRequest="30" WidthRequest="30" />
+
+                        <!-- App Title and Description -->
+                        <VerticalStackLayout Spacing="0" Margin="5,0,0,0">
+                            <Label Text="IDSC" TextColor="#398639" FontSize="25" FontAttributes="Bold" />
+
+                            <!-- Split into two labels for better spacing -->
+                            <Label Text="Infotech Development Systems" TextColor="#333" FontSize="11" />
+                            <Label Text="Systems Colleges Inc." TextColor="#333" FontSize="11" />
+
+                            <Label Text="Student Portal" TextColor="#333" FontSize="12" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Grid>
+
+
+
+
+                <!-- Taskbar Container (Initially Visible) -->
+                <VerticalStackLayout x:Name="TaskbarContainer" IsVisible="True">
+                    <!-- Add the contents of your taskbar here, for example: -->
+                    <Label Text="Taskbar Content" />
+                </VerticalStackLayout>
+
+                <!-- Menu Header -->
+                <Label Text="━━━━━  MAIN MENU" Margin="20,15,0,10" TextColor="#9E9E9E" FontSize="12" />
+
+                <!-- Menu Items -->
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                    </Grid.RowDefinitions>
+                    <BoxView Grid.Column="0" BackgroundColor="#5bf056" />
+                    <!-- Dashboard - Active Item -->
+                    <Grid Grid.Row="0" BackgroundColor="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Green Active Indicator -->
+                        <BoxView Grid.Column="0" BackgroundColor="#398639" />
+
+                        <!-- Menu Item Content -->
+                        <HorizontalStackLayout Grid.Column="1" Padding="15,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="dashboard_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Dashboard" TextColor="#1976D2" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <!-- Other menu items remain the same -->
+                    <Grid Grid.Row="1" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAssessmentTapped" />
+                        </Grid.GestureRecognizers>
+                        
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="assessment_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Assessment" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                    <!-- Student Information Section -->
+                    <VerticalStackLayout Grid.Row="2" x:Name="StudentInfoSection" IsVisible="True">
+
+                        <!-- Header that can be tapped -->
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnStudentInfoTapped" />
+                            </Grid.GestureRecognizers>
+
+                            <HorizontalStackLayout Grid.Column="0" Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                                <Image Source="student_info_icon.png" HeightRequest="18" WidthRequest="18" />
+                                <Label Text="Student Information" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Image
+x:Name="ExpandIcon"
+Grid.Column="1"
+Source="arrow_down.png"
+HeightRequest="16"
+WidthRequest="16"
+Margin="0,0,10,0"
+VerticalOptions="Center"
+Rotation="0"
+                         
+                            />
+                        </Grid>
+
+                        <!-- Hidden Submenu -->
+                        <VerticalStackLayout 
+        x:Name="StudentInfoItems" 
+        IsVisible="True" 
+        Padding="50,15,10,8"  
+        Spacing="8"
+        BackgroundColor="Transparent">
+
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                <Image Source="schedule_icon.png" HeightRequest="18" WidthRequest="18" />
+                                <Label Text="Schedules | COR"
+                   TextColor="#616161"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSchedulesTapped" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                <Image Source="grades_icon.png" HeightRequest="18" WidthRequest="18" />
+                                <Label Text="Grades"
+                   TextColor="#616161"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnGradesTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <!-- Other menu items -->
+                    <Grid Grid.Row="3" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFacultyEvaluationTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="18,5,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="evaluation_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Faculty Evaluation" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <Grid Grid.Row="4" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCalendarTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="calendar_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Calendar of Events" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <Grid Grid.Row="5" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAnnouncementFeedTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="announcements_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Announcement Feed" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+
+                </Grid>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Main Content Area (Now takes full width) -->
+        <Grid Grid.Column="1" BackgroundColor="#F0F2F5">
+            <!-- Header Bar -->
+            <Grid RowDefinitions="Auto,*">
+                <!-- Top Bar with Date, User Info, and Sidebar Toggle Button -->
+                <Grid Grid.Row="0" BackgroundColor="White" Padding="20,15" ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Added Sidebar Toggle Button -->
+                    <Frame
+    Grid.Column="0"
+    HasShadow="True"
+    Padding="14,8"
+    CornerRadius="16"
+    BackgroundColor="#FFFFFF"
+    Margin="0,0,16,0"
+    BorderColor="#E0E0E0"
+    HeightRequest="48"
+    VerticalOptions="Center"
+    HorizontalOptions="Start">
+
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <!-- Elegant menu icon (replace with your preferred icon if available) -->
+                            <Image Source="menu_icon.png" HeightRequest="22" WidthRequest="22" VerticalOptions="Center" />
+                            <Label
+            Text="Menu"
+            TextColor="#222"
+            FontSize="16"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            FontFamily="Montserrat"/>
+                        </HorizontalStackLayout>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnToggleSidebar" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+
+                    <!-- Date and Time -->
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Image Source="calendar_icon_gray.png" HeightRequest="16" WidthRequest="16" VerticalOptions="Center" />
+                        <Label x:Name="dateTimeLabel" 
+                               Text="Loading time..." 
+                               TextColor="#757575" 
+                               FontSize="14" 
+                               Margin="5,0,0,0" 
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                  
+
+                    <!-- Notifications -->
+                    <HorizontalStackLayout Grid.Column="3" VerticalOptions="Center">
+                        <Image Source="notification_icon.png"
+           HeightRequest="18"
+           WidthRequest="18"
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+
+                    <!-- Theme Toggle -->
+                  <HorizontalStackLayout Grid.Column="4" VerticalOptions="Center" Margin="10,0,0,0">
+    <Frame 
+        HasShadow="False" 
+        Padding="0" 
+        HeightRequest="35" 
+        WidthRequest="32" 
+        CornerRadius="16" 
+        BackgroundColor="#F5F5F5" 
+        BorderColor="Transparent"> <!-- This line removes the outline -->
+        
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="ShowThemePopup" />
+        </Frame.GestureRecognizers>
+
+        <Image 
+            Source="theme_icon.png" 
+            HeightRequest="45" 
+            WidthRequest="30" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center" />
+    </Frame>
+</HorizontalStackLayout>
+
+                </Grid>
+
+                <!-- Main Content Scroll Area (The rest remains the same) -->
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Padding="20" Spacing="20">
+                        <!-- Welcome Banner -->
+                        <Frame CornerRadius="8" HasShadow="True" Padding="20" BorderColor="Transparent">
+                            <Frame.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#5bf056" Offset="0.0" />
+                                    <GradientStop Color="#ffffff" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Frame.Background>
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="Welcome, JEROENEL ALTAMERA! 🎉"
+                                       TextColor="White"
+                                       FontSize="20"
+                                       FontAttributes="Bold" />
+                                <Label Text="IDSC is a platform designed to enhance the digital experience for users. It helps individuals access important information, manage their activities efficiently, and stay updated with the latest developments and events. With a user-friendly interface and seamless integration, IDSC ensures a smooth and organized digital journey."
+                                       TextColor="Black"
+                                       FontSize="14" />
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Quick Access Tiles -->
+                        <Grid ColumnSpacing="20" RowSpacing="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Tiles content remains the same -->
+                            <!-- BU Website -->
+                            <Frame Grid.Column="0"
+       BackgroundColor="White"
+       CornerRadius="8"
+       HasShadow="True"
+                                   BorderColor="Transparent"
+       Padding="15">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnWebsiteTapped" />
+                                </Frame.GestureRecognizers>
+
+                                <Grid RowSpacing="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Source="website_icon.png" HeightRequest="32" WidthRequest="32" HorizontalOptions="Start" />
+                                    <Label Grid.Row="1" Text="Official Website of IDSC" TextColor="#333" FontSize="13" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Text="idsc-u.edu.ph" TextColor="#757575" FontSize="11" />
+                                </Grid>
+                            </Frame>
+
+
+                            <!-- BU LMS -->
+                            <Frame Grid.Column="1" BackgroundColor="White" CornerRadius="8" HasShadow="True" Padding="15" BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnWebsiteTapped" />
+                                </Frame.GestureRecognizers>
+                                <Grid RowSpacing="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Source="lms_icon.png" HeightRequest="32" WidthRequest="32" HorizontalOptions="Start" />
+                                    <Label Grid.Row="1" Text="IDSC Learning Management System" TextColor="#333" FontSize="13" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Text="idsc-u.edu.ph" TextColor="#757575" FontSize="11" />
+                                </Grid>
+                            </Frame>
+
+                            <!-- BU e-Journal -->
+                            <Frame Grid.Column="2" BackgroundColor="White" CornerRadius="8" BorderColor="Transparent" HasShadow="True" Padding="15">
+                                <Grid RowSpacing="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Source="journal_icon.png" HeightRequest="32" WidthRequest="32" HorizontalOptions="Start" />
+                                    <Label Grid.Row="1" Text="IDSC e-Journal" TextColor="#333" FontSize="13" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Text="idsc-u.edu.ph/journal" TextColor="#757575" FontSize="11" />
+                                </Grid>
+                            </Frame>
+
+                            <!-- ICTO Service -->
+                            <Frame Grid.Column="3" BackgroundColor="White" CornerRadius="8" BorderColor="Transparent" HasShadow="True" Padding="15">
+                                <Grid RowSpacing="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Source="icto_icon.png" HeightRequest="32" WidthRequest="32" HorizontalOptions="Start" />
+                                    <Label Grid.Row="1" Text="ICTO Service Request" TextColor="#333" FontSize="13" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Text="idsc-u.edu.ph/icto" TextColor="#757575" FontSize="11" />
+                                </Grid>
+                            </Frame>
+                        </Grid>
+
+                        <!-- Middle Content Split -->
+                        <Grid ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Content for the middle section remains the same -->
+                            <!-- April Events -->
+                            <Frame Grid.Column="0" BackgroundColor="White" CornerRadius="8" HasShadow="True" Padding="0">
+                                <!-- Events content remains the same -->
+                                <Grid RowDefinitions="Auto,*">
+                                    <!-- Header -->
+                                    <Grid Grid.Row="0" Padding="15,15,15,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text="April Events" FontSize="16" FontAttributes="Bold" TextColor="#333" />
+                                        <Label Grid.Column="1" Text="⋮" FontSize="20" TextColor="#757575" />
+                                    </Grid>
+
+                                    <!-- Event List -->
+                                    <VerticalStackLayout  Grid.Row="1" Spacing="0">
+                                        <!-- USC Convocations -->
+                                        <Grid Padding="15,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Date Box -->
+                                            <Frame Grid.Column="0" BackgroundColor="#398639" CornerRadius="4" Padding="10,5" WidthRequest="40" HeightRequest="50" VerticalOptions="Start">
+                                                <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                                                    <Label Text="Apr" TextColor="White" FontSize="10" HorizontalOptions="Center" />
+                                                    <Label Text="30" TextColor="White" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Event Details -->
+                                            <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                                <Label Text="USC Convocations (c/o The IDSCIANs)" TextColor="#333" FontSize="14" />
+                                                <Label Text="UPCOMING" TextColor="#757575" FontSize="12" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+
+                                        <!-- More events... -->
+                                        <Grid Padding="15,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Date Box -->
+                                            <Frame Grid.Column="0" BackgroundColor="#398639" CornerRadius="4" Padding="10,5" WidthRequest="40" HeightRequest="50" VerticalOptions="Start">
+                                                <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                                                    <Label Text="Apr" TextColor="White" FontSize="10" HorizontalOptions="Center" />
+                                                    <Label Text="21" TextColor="White" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Event Details -->
+                                            <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                                <Label Text="CSC Convocations" TextColor="#333" FontSize="14" />
+                                                <Label Text="UPCOMING" TextColor="#757575" FontSize="12" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+
+                                        <Grid Padding="15,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Date Box -->
+                                            <Frame Grid.Column="0" BackgroundColor="#398639" CornerRadius="4" Padding="10,5" WidthRequest="40" HeightRequest="50" VerticalOptions="Start">
+                                                <VerticalStackLayout Spacing="0" HorizontalOptions="Center">
+                                                    <Label Text="Apr" TextColor="White" FontSize="10" HorizontalOptions="Center" />
+                                                    <Label Text="19" TextColor="White" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                            </Frame>
+
+                                            <!-- Event Details -->
+                                            <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                                <Label Text="Black Saturday" TextColor="#333" FontSize="14" />
+                                                <Label Text="Today" TextColor="#757575" FontSize="12" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Announcements -->
+                            <Frame Grid.Column="1" BackgroundColor="White" CornerRadius="8" HasShadow="True" Padding="0">
+                                <!-- Announcements content remains the same -->
+                                <Grid RowDefinitions="Auto,*">
+                                    <!-- Header -->
+                                    <Grid Grid.Row="0" Padding="15,15,15,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text="Announcements" FontSize="16" FontAttributes="Bold" TextColor="#333" />
+                                        <Label Grid.Column="1" Text="⋮" FontSize="20" TextColor="#757575" />
+                                    </Grid>
+
+                                    <!-- Announcements List -->
+                                    <VerticalStackLayout Grid.Row="1"  Spacing="0">
+                                        <!-- Announcement 1 -->
+                                        
+                                        <Grid Padding="15,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Icon -->
+                                            <Frame Grid.Column="0" BackgroundColor="#F5F5F5" CornerRadius="4" Padding="5" WidthRequest="40" HeightRequest="40" VerticalOptions="Start">
+                                                <Image Source="announcement_icon.png" HeightRequest="20" WidthRequest="20" />
+                                            </Frame>
+
+                                            <!-- Announcement Details -->
+                                            <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                                <Label Text="iIDSC Web Beta Version 3 is here!!" TextColor="#333" FontSize="14" />
+                                                <Label Text="Posted by: IDSC ICTO" TextColor="#757575" FontSize="12" />
+                                            </VerticalStackLayout>
+
+                                            <!-- Read Button -->
+                                            <Button Grid.Column="2" Text="Read" BackgroundColor="#398639" TextColor="White" FontSize="12" 
+                                                    CornerRadius="4" Padding="10,5" HeightRequest="30" />
+                                        </Grid>
+
+                                        <!-- Announcement 2 -->
+                                        <Grid Padding="15,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Icon -->
+                                            <Frame Grid.Column="0" BackgroundColor="#F5F5F5" CornerRadius="4" Padding="5" WidthRequest="40" HeightRequest="40" VerticalOptions="Start">
+                                                <Image Source="announcement_icon.png" HeightRequest="20" WidthRequest="20" />
+                                            </Frame>
+
+                                            <!-- Announcement Details -->
+                                            <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                                <Label Text="iIDSC Web Beta Version 2 is now..." TextColor="#333" FontSize="14" />
+                                                <Label Text="Posted by: IDSC ICTO" TextColor="#757575" FontSize="12" />
+                                            </VerticalStackLayout>
+
+                                            <!-- Read Button -->
+                                            <Button Grid.Column="2" Text="Read" BackgroundColor="#398639" TextColor="White" FontSize="12" 
+                                                    CornerRadius="4" Padding="10,5" HeightRequest="30" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+
+                            <!-- Need Help Section -->
+                            <Frame Grid.Column="2" BackgroundColor="White" BorderColor="Transparent" CornerRadius="8" HasShadow="True" Padding="15">
+                                <!-- Help section content remains the same -->
+                                <VerticalStackLayout Spacing="15">
+                                    <Label Text="Need Help?" FontSize="18" FontAttributes="Bold" TextColor="#546E7A" />
+
+                                    <Label Text="Contact IDSC ICTO to report any issues or concerns regarding the iIDSC Web App." 
+                                           TextColor="#757575" FontSize="14" />
+
+                                    <Button Text="⭐ Send Feedback" BackgroundColor="#398639" TextColor="White" 
+                                            CornerRadius="4" HorizontalOptions="Start" Padding="15,10" />
+
+                                    <Label Text="Furthermore, you can also contact us via email at" TextColor="#757575" FontSize="12" />
+                                    <Label Text="idsc-icto@idsc-i.edu.ph" TextColor="#398639" FontSize="12" TextDecorations="Underline" />
+
+                                    <Image
+    Source="support_illustration.png"
+    WidthRequest="200"
+    HeightRequest="150"
+    HorizontalOptions="End"
+    VerticalOptions="End"
+    Margin="5"
+    ZIndex="10" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

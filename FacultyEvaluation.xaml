@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoginForm.FacultyEvaluation"
+             BackgroundColor="#F8FAFC">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Sidebar - initially collapsed (0 width) -->
+            <ColumnDefinition Width="0" x:Name="SidebarColumn" />
+            <!-- Main Content - takes full width -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar (hidden by default) -->
+        <Grid Grid.Column="0" BackgroundColor="White" Padding="0" x:Name="Sidebar" IsVisible="False">
+            <!-- Logo and App Title -->
+            <VerticalStackLayout Spacing="0">
+                <!-- Header with Logo -->
+                <Grid Padding="5,5" BackgroundColor="White">
+                    <HorizontalStackLayout>
+                        <!-- Logo -->
+                        <Image Source="idsc_logo.png" HeightRequest="30" WidthRequest="30" />
+
+                        <!-- App Title and Description -->
+                        <VerticalStackLayout Spacing="0" Margin="5,0,0,0">
+                            <Label Text="IDSC" TextColor="#398639" FontSize="25" FontAttributes="Bold" />
+
+                            <!-- Split into two labels for better spacing -->
+                            <Label Text="Infotech Development Systems" TextColor="#333" FontSize="11" />
+                            <Label Text="Systems Colleges Inc." TextColor="#333" FontSize="11" />
+
+                            <Label Text="Student Portal" TextColor="#333" FontSize="12" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Grid>
+
+
+
+
+                <!-- Taskbar Container (Initially Visible) -->
+                <VerticalStackLayout x:Name="TaskbarContainer" IsVisible="True">
+                    <!-- Add the contents of your taskbar here, for example: -->
+                    <Label Text="Taskbar Content" />
+                </VerticalStackLayout>
+
+                <!-- Menu Header -->
+                <Label Text="━━━━━ MAIN MENU" Margin="20,15,0,10" TextColor="#9E9E9E" FontSize="12" />
+
+                <!-- Menu Items -->
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Dashboard - Active Item -->
+                    <Grid Grid.Row="0" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDashboardTapped" />
+                        </Grid.GestureRecognizers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <!-- Menu Item Content -->
+                        <HorizontalStackLayout Grid.Column="1" Padding="15,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="dashboard_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Dashboard" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <Grid Grid.Row="1" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAssessmentTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="assessment_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Assessment" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <!-- Student Information Section -->
+                    <VerticalStackLayout Grid.Row="2" x:Name="StudentInfoSection" IsVisible="True">
+
+                        <!-- Header that can be tapped -->
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnStudentInfoTapped" />
+                            </Grid.GestureRecognizers>
+
+    
+
+                            <HorizontalStackLayout Grid.Column="0" Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                                <Image Source="student_info_icon.png" HeightRequest="20" WidthRequest="20" />
+                                <Label Text="Student Information" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Image
+x:Name="ExpandIcon"
+Grid.Column="1"
+Source="arrow_down.png"
+HeightRequest="16"
+WidthRequest="16"
+Margin="0,0,10,0"
+VerticalOptions="Center"
+Rotation="0"
+                         
+                            />
+                        </Grid>
+
+                        <!-- Hidden Submenu -->
+                        <!-- Hidden Submenu -->
+                        <!-- Hidden Submenu -->
+                        <VerticalStackLayout 
+x:Name="StudentInfoItems" 
+IsVisible="True" 
+  Padding="50,15,10,8"  
+Spacing="8"
+BackgroundColor="Transparent">
+
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                <Image Source="schedule_icon.png" HeightRequest="18" WidthRequest="18" />
+                                <Label Text="Schedules | COR"
+           TextColor="#616161"
+           FontSize="14"
+           VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSchedulesTapped" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                                <Image Source="grades_icon.png" HeightRequest="18" WidthRequest="18" />
+                                <Label Text="Grades"
+           TextColor="#616161"
+           FontSize="14"
+           VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnGradesTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                    <!-- Other menu items -->
+                    <Grid Grid.Row="3" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFacultyEvaluationTapped" />
+                        </Grid.GestureRecognizers>
+                        <BoxView Grid.Column="1" BackgroundColor="#5bf056" />
+                        <!-- Green Active Indicator -->
+                        <BoxView Grid.Column="0"
+BackgroundColor="#398639"
+WidthRequest="4"
+HorizontalOptions="Start"
+VerticalOptions="Fill"
+/>
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="evaluation_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Faculty Evaluation" TextColor="#1976D2" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                    <Grid Grid.Row="4" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCalendarTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="calendar_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Calendar of Events" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+
+                    <Grid Grid.Row="5" BackgroundColor="Transparent">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAnnouncementFeedTapped" />
+                        </Grid.GestureRecognizers>
+
+                        <HorizontalStackLayout Padding="20,0,0,0" Spacing="10" VerticalOptions="Center">
+                            <Image Source="announcements_icon.png" HeightRequest="18" WidthRequest="18" />
+                            <Label Text="Announcement Feed" TextColor="#616161" FontSize="14" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Grid>
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- Main Content Area (Now takes full width) -->
+        <Grid Grid.Column="1" BackgroundColor="#F0F2F5">
+            <!-- Header Bar -->
+            <Grid RowDefinitions="Auto,*">
+                <!-- Top Bar with Date, User Info, and Sidebar Toggle Button -->
+                <Grid Grid.Row="0" BackgroundColor="White" Padding="20,15" ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Added Sidebar Toggle Button -->
+                    <Frame
+Grid.Column="0"
+HasShadow="True"
+Padding="14,8"
+CornerRadius="16"
+BackgroundColor="#FFFFFF"
+Margin="0,0,16,0"
+BorderColor="#E0E0E0"
+HeightRequest="48"
+VerticalOptions="Center"
+HorizontalOptions="Start">
+
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <!-- Elegant menu icon (replace with your preferred icon if available) -->
+                            <Image Source="menu_icon.png" HeightRequest="22" WidthRequest="22" VerticalOptions="Center" />
+                            <Label
+        Text="Menu"
+        TextColor="#222"
+        FontSize="16"
+        FontAttributes="Bold"
+        VerticalOptions="Center"
+        FontFamily="Montserrat"/>
+                        </HorizontalStackLayout>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnToggleSidebar" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!-- Date and Time -->
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Image Source="calendar_icon_gray.png" HeightRequest="16" WidthRequest="16" VerticalOptions="Center" />
+                        <Label x:Name="dateTimeLabel" 
+                            Text="Loading time..." 
+                            TextColor="#757575" 
+                            FontSize="14" 
+                            Margin="5,0,0,0" 
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+
+
+                    <!-- Notifications -->
+                    <HorizontalStackLayout Grid.Column="3" VerticalOptions="Center">
+                        <Image Source="notification_icon.png"
+HeightRequest="18"
+WidthRequest="18"
+HorizontalOptions="Center"
+VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <!-- Theme Toggle -->
+                    <HorizontalStackLayout Grid.Column="4" VerticalOptions="Center" Margin="10,0,0,0">
+                        <Frame 
+        HasShadow="False" 
+        Padding="0" 
+        HeightRequest="35" 
+        WidthRequest="32" 
+        CornerRadius="16" 
+        BackgroundColor="#F5F5F5" 
+        BorderColor="Transparent">
+                            <!-- This line removes the outline -->
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShowThemePopup" />
+                            </Frame.GestureRecognizers>
+
+                            <Image 
+            Source="theme_icon.png" 
+            HeightRequest="45" 
+            WidthRequest="30" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center" />
+                        </Frame>
+                    </HorizontalStackLayout>
+
+                </Grid>
+
+                <!-- Main Content Scroll Area (The rest remains the same) -->
+                <ScrollView Grid.Row="1">
+
+                </ScrollView>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
